@@ -1,0 +1,143 @@
+drop database databaza_pozemky;
+
+create database databaza_pozemky;
+CREATE TABLE Vlastnik ( 
+
+    IDVlastnik int NOT NULL AUTO_INCREMENT, 
+    
+    cisloVlastnik int,
+
+ 	menoVlastnik varchar(20), 
+
+    priezviskoVlastnik varchar(30), 
+    
+    rodnePriezviskoVlastnik varchar(20), 
+inyIdentifikator varchar(70),
+
+    datumNarodeniaVlastnik date, 
+
+    adresaVlastnik varchar(60),
+    
+    ICOVlastnik varchar(15),
+                            
+
+    PRIMARY KEY (IDVlastnik) 
+	
+
+)ENGINE=InnoDB; 
+
+ 
+
+
+ 
+
+ 
+
+create table List_Vlastnictva(    
+   
+
+   IDLV int not null auto_increment,
+   
+   cisloLV int ,
+	
+   katastralneUzemieCislo varchar(10) ,
+
+   katastralneUzemieNazov varchar(30) ,
+
+   okresCislo varchar(10) ,
+  
+   okresNazov varchar(30) ,
+
+   obecCislo varchar(10) ,
+  
+   obecNazov varchar(30) ,
+
+   datumVyhotovenia varchar(20) ,  
+
+   casVyhotovenia varchar(20) ,
+
+   platnostLV varchar(20) ,
+
+   pocetParciel int ,
+
+   pocetSpravcov varchar(10) ,
+
+   pocetVlastnikov int ,
+
+   
+ 
+
+  
+
+    PRIMARY key(IDLV)
+
+        
+
+     )ENGINE=InnoDB; 
+	 
+	 
+
+CREATE TABLE Parcela (   
+	IDParcela int NOT NULL AUTO_INCREMENT, 
+	typParcely varchar(3),
+
+    parcelneCislo varchar(10) ,   
+
+     vymera double(7,3) ,   
+
+     druhPozemku varchar(30) ,  
+	 povodneKU varchar(5),
+
+     sposobVyuzitia varchar(10) ,   
+
+     druhCHN  varchar(20),  
+
+     spolocnaNehnutelnost varchar(10) ,  
+
+     umiestneniePozemku varchar(10) ,  
+    
+     druhPV varchar(10),
+    IDLV int,
+
+     PRIMARY KEY (IDParcela),
+   FOREIGN KEY(IDLV) REFERENCES List_Vlastnictva(IDLV)  
+	ON UPDATE CASCADE
+      ON DELETE CASCADE
+
+)ENGINE=InnoDB; 
+
+
+
+create table LV_Vlastnik(   
+  
+ID_ST int not null AUTO_INCREMENT,
+titulNadobudnutia varchar(500) ,
+ineUdaje varchar(70) ,
+poznamky varchar(500)  ,
+akcia varchar(5),
+podielCitatel int (20)  ,
+podielMenovatel int (20)  ,
+novyPodielCitatel int (20)  ,
+novyPodielMenovatel int (20)  ,
+plomba varchar(150),
+ IDLV int NOT null,    
+ IDVlastnik int NOT null, 
+    
+PRIMARY KEY(ID_ST),
+ FOREIGN KEY(IDLV) REFERENCES List_Vlastnictva(IDLV) ON UPDATE CASCADE ON DELETE CASCADE,
+ FOREIGN KEY(IDVlastnik) REFERENCES Vlastnik(IDVlastnik) ON UPDATE CASCADE ON DELETE CASCADE
+
+   
+)ENGINE=InnoDB; 
+
+    ALTER TABLE LV_Vlastnik CONVERT TO CHARACTER SET utf8 COLLATE utf8_slovak_ci; 
+
+
+  ALTER TABLE Vlastnik CONVERT TO CHARACTER SET utf8 COLLATE utf8_slovak_ci;
+  ALTER TABLE Parcela CONVERT TO CHARACTER SET utf8 COLLATE utf8_slovak_ci;
+  ALTER TABLE List_Vlastnictva CONVERT TO CHARACTER SET utf8 COLLATE utf8_slovak_ci;
+
+ALTER TABLE  list_vlastnictva
+ADD tarchy text after pocetVlastnikov;
+	 
+	 
