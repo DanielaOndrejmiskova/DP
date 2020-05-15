@@ -1,0 +1,50 @@
+Nahrání a registrace ovladače:
+
+Předtím, než budou provedeny jakékoli operace nad databází, je nutné ovladač nahrát a registrovat. K tomu slouží příkaz Class.forName(”jméno_JDBC_ovladače”);. V našem případě:
+
+try{ Class.forName("com.mysql.jdbc.Driver"); }
+catch(Exception e){ System.out.println("Chyba driveru");
+System.out.println(e.toString());
+}
+
+Volání této statické metody musí být v try{} bloku, podobně jako ostatní operace nad databází. Pokud dojde k chybě vypíše se věta Chyba driveru a poté i bližší označení samotné chyby.
+
+Zahájení spojení s databází:
+
+Registrace JDBC ovladače je vázána na DriverManager, což je třída s metodami pro správu a práci s JDBC. Jakmile byl JDBC ovladač nahrán a správně zaregistrován DriverManagerem, je možné navázat spojení s databází.
+
+DriveManager nám poskytuje metodu getConnection, která nás připojí k příslušné databázi. Vypadá zhruba obecně takto: DriverManager.getConnection(URL, jmeno, heslo).
+
+URL vypadá na MySQL obecně takto: jdbc:mysql://host:port/název databáze
+
+V našem programu to bude vypadat takto: Do proměnné typu Connection uložíme naše spojení:
+
+Connection conn = DriverManager.getConnection(”jdbc:mysql://localhost:3306/zamestnanci”,”vedouci”,”heslo”);
+
+Celé to přijde samozřejmě do bloku try{}.
+
+Dotazování na databázi:
+
+Jakmile máme spojení s databází, můžeme nad ní začít provádět datové operace. K tomu je určena další třída, kterou nám poskytne vytvořený objekt Connection, tou je Statement .
+
+Instance této třídy pak slouží pro posílání SQL příkazů databázi, kde jsou zpracovány a vrací odpovídající hodnoty.
+ Statement nabízí velké množství metod, ale všemi se tu nebudeme zabývat. Nejdůležitější jsou pro začátek tyto metody:
+
+executeQuery()
+executeUpdate()
+První metoda, executeQuery(), slouží k posílání dotazů (SELECT) do databáze, výsledkem jsou objekty třídy ResultSet.
+
+Druhá metoda, executeUpdate(), slouží k aktualizaci databáze a slouží k zadávání příkazů jako UPDATE, INSERT, DELETE.
+
+V našem případě to tedy bude vypadat takto:
+
+Statement st = conn.createStatement();
+ResultSet rs = st.executeQuery("SELECT * FROM zam");
+
+Vypíšeme jména všech zaměstnanců nalézajících se v databázi:
+
+while (rs.next()) {
+System.out.println(rs.getString(1));
+}
+
+A tím máme celý náš skript hotový, pokud jste dělali vše správně, vypíší se vám jména zaměstnanců obsažených v databázi.

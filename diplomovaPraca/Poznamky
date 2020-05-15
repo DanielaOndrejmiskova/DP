@@ -1,0 +1,16 @@
+dorobit dizajn GUIka
+vytvorit word dokument kupnej zmluvy
+zacat pisat teorku (o com je diplomovka, o pdf reader vs tika vs online converter, uspora nakladov pravnika pouzitim aplikacie)
+vymysliet kam dat tlacidlo na import dalsich tabuliek co je zatial invisible v mainforme
+nezabudnut na zviditelnenie login formulara
+tlacidlo na import dalsej tabulky zmenit
+
+
+Tonkove poznámky:
+pozor na vymaz vlastnikov z DB
+moze sa stat ze je na 1 LV viackrat ten isty vlastnik len s inym cislom - treba ich mergnut a scitat ich podiely dokopy
+vytvaranie .docx: na 1 doc moze byt viacero kupujucich aj predavajucich (na DP je len 1 predavajuci) a viacero LV - cize jedna tabulka parciel je
+pre 1 LV - moze byt na jednej zmluve aj viacero tabuliek s parcelami
+pri pravnickych osobach si do stlpca menoVlastnika treba ulozit cely nazov PO a priezvisko nechat prazdne - ICO sluzi ako identifikator PO
+word doc predavajucich a kupujucich treba zarovnat
+
